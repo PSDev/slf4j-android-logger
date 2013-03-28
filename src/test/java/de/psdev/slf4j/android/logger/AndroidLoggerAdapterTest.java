@@ -19,7 +19,6 @@ package de.psdev.slf4j.android.logger;
 import android.util.Log;
 import com.xtremelabs.robolectric.Robolectric;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
@@ -45,9 +44,9 @@ public class AndroidLoggerAdapterTest {
 
     @Test
     public void testInitialization() throws Exception {
-        assertEquals("should have read correct log tag from properties", "TestLogTag", AndroidLoggerAdapter.sLogTagString);
+        assertEquals("should have read correct log tag from properties", "TestLogTag", AndroidLoggerAdapter.getLogTag());
         assertEquals("should have correct name", AndroidLoggerAdapterTest.class.getName(), mLogger.getName());
-        assertEquals("should have correct log level", Log.VERBOSE, AndroidLoggerAdapter.sDefaultLogLevel);
+        assertEquals("should have correct log level", Log.VERBOSE, AndroidLoggerAdapter.getLogLevel());
     }
 
     @Test

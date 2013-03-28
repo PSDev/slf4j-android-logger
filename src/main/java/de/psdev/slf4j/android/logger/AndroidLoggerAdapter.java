@@ -105,8 +105,8 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private static final int LOG_LEVEL_WARN = Log.WARN;
     private static final int LOG_LEVEL_ERROR = Log.ERROR;
 
-    static int sDefaultLogLevel = LOG_LEVEL_INFO;
-    static String sLogTagString = "Slf4jAndroidLogger";
+    private static int sLogLevel = LOG_LEVEL_INFO;
+    private static String sLogTag = "Slf4jAndroidLogger";
 
     /**
      * All system properties used by {@code AndroidLogger} start with this prefix
@@ -138,15 +138,15 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         // Init properties
         final String defaultLogLevelString = getStringProperty(DEFAULT_LOG_LEVEL_KEY, null);
         if (defaultLogLevelString != null) {
-            sDefaultLogLevel = stringToLevel(defaultLogLevelString);
+            setLogLevel(stringToLevel(defaultLogLevelString));
         }
-        sLogTagString = getStringProperty(LOG_TAG_KEY, "Slf4jAndroidLogger");
+        setLogTag(getStringProperty(LOG_TAG_KEY, "Slf4jAndroidLogger"));
     }
 
     /**
      * The current log level
      */
-    private int currentLogLevel = sDefaultLogLevel;
+    private int currentLogLevel = getLogLevel();
 
     /**
      * Package access allows only {@link AndroidLoggerFactory} to instantiate
@@ -154,6 +154,22 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     AndroidLoggerAdapter(final String tag) {
         name = tag;
+    }
+
+    public static int getLogLevel() {
+        return sLogLevel;
+    }
+
+    public static void setLogLevel(final int logLevel) {
+        sLogLevel = logLevel;
+    }
+
+    public static String getLogTag() {
+        return sLogTag;
+    }
+
+    public static void setLogTag(final String logTag) {
+        sLogTag = logTag;
     }
 
     /**
@@ -554,44 +570,64 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         if (isLevelEnabled(priority)) {
             switch (priority) {
                 case Log.VERBOSE:
-                    if (throwable != null) {
-                        Log.v(sLogTagString, enhanced(name, message), throwable);
-                    } else {
-                        Log.v(sLogTagString, enhanced(name, message));
-                    }
+                    logAndroidVerbose(message, throwable);
                     break;
                 case Log.DEBUG:
-                    if (throwable != null) {
-                        Log.d(sLogTagString, enhanced(name, message), throwable);
-                    } else {
-                        Log.d(sLogTagString, enhanced(name, message));
-                    }
+                    logAndroidDebug(message, throwable);
                     break;
                 case Log.INFO:
-                    if (throwable != null) {
-                        Log.i(sLogTagString, enhanced(name, message), throwable);
-                    } else {
-                        Log.i(sLogTagString, enhanced(name, message));
-                    }
+                    logAndroidInfo(message, throwable);
                     break;
                 case Log.WARN:
-                    if (throwable != null) {
-                        Log.w(sLogTagString, enhanced(name, message), throwable);
-                    } else {
-                        Log.w(sLogTagString, enhanced(name, message));
-                    }
+                    logAndroidWarn(message, throwable);
                     break;
                 case Log.ERROR:
-                    if (throwable != null) {
-                        Log.e(sLogTagString, enhanced(name, message), throwable);
-                    } else {
-                        Log.e(sLogTagString, enhanced(name, message));
-                    }
+                    logAndroidError(message, throwable);
                     break;
                 default:
                     // nop
                     break;
             }
+        }
+    }
+
+    private void logAndroidVerbose(String message, Throwable throwable) {
+        if (throwable != null) {
+            Log.v(getLogTag(), enhanced(name, message), throwable);
+        } else {
+            Log.v(getLogTag(), enhanced(name, message));
+        }
+    }
+
+    private void logAndroidDebug(String message, Throwable throwable) {
+        if (throwable != null) {
+            Log.d(getLogTag(), enhanced(name, message), throwable);
+        } else {
+            Log.d(getLogTag(), enhanced(name, message));
+        }
+    }
+
+    private void logAndroidInfo(String message, Throwable throwable) {
+        if (throwable != null) {
+            Log.i(getLogTag(), enhanced(name, message), throwable);
+        } else {
+            Log.i(getLogTag(), enhanced(name, message));
+        }
+    }
+
+    private void logAndroidWarn(String message, Throwable throwable) {
+        if (throwable != null) {
+            Log.w(getLogTag(), enhanced(name, message), throwable);
+        } else {
+            Log.w(getLogTag(), enhanced(name, message));
+        }
+    }
+
+    private void logAndroidError(String message, Throwable throwable) {
+        if (throwable != null) {
+            Log.e(getLogTag(), enhanced(name, message), throwable);
+        } else {
+            Log.e(getLogTag(), enhanced(name, message));
         }
     }
 
