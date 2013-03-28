@@ -42,12 +42,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.psdev</groupId>
-        <artifactId>slf4j-android-logger-parent</artifactId>
+        <groupId>de.psdev.slf4j-android-logger</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>slf4j-android-logger-test</artifactId>
+    <artifactId>test</artifactId>
     <packaging>apk</packaging>
 
     <name>SLF4J Android Logger (Test)</name>
@@ -73,9 +73,8 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.psdev</groupId>
+            <groupId>de.psdev.slf4j-android-logger</groupId>
             <artifactId>slf4j-android-logger</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <!-- Testing -->

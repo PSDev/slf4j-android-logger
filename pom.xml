@@ -9,8 +9,8 @@
         <version>7</version>
     </parent>
 
-    <groupId>de.psdev</groupId>
-    <artifactId>slf4j-android-logger-parent</artifactId>
+    <groupId>de.psdev.slf4j-android-logger</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -82,6 +82,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- SLF4J Android Logger -->
+            <dependency>
+                <groupId>de.psdev.slf4j-android-logger</groupId>
+                <artifactId>slf4j-android-logger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Android -->
             <dependency>
                 <groupId>com.google.android</groupId>
