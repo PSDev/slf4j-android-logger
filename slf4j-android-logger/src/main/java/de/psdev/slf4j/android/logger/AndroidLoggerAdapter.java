@@ -105,8 +105,8 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private static final int LOG_LEVEL_WARN = Log.WARN;
     private static final int LOG_LEVEL_ERROR = Log.ERROR;
 
-    static int DEFAULT_LOG_LEVEL = LOG_LEVEL_INFO;
-    static String LOG_TAG_STRING = "Slf4jAndroidLogger";
+    static int sDefaultLogLevel = LOG_LEVEL_INFO;
+    static String sLogTagString = "Slf4jAndroidLogger";
 
     /**
      * All system properties used by {@code AndroidLogger} start with this prefix
@@ -138,15 +138,15 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         // Init properties
         final String defaultLogLevelString = getStringProperty(DEFAULT_LOG_LEVEL_KEY, null);
         if (defaultLogLevelString != null) {
-            DEFAULT_LOG_LEVEL = stringToLevel(defaultLogLevelString);
+            sDefaultLogLevel = stringToLevel(defaultLogLevelString);
         }
-        LOG_TAG_STRING = getStringProperty(LOG_TAG_KEY, "Slf4jAndroidLogger");
+        sLogTagString = getStringProperty(LOG_TAG_KEY, "Slf4jAndroidLogger");
     }
 
     /**
      * The current log level
      */
-    protected int currentLogLevel = DEFAULT_LOG_LEVEL;
+    private int currentLogLevel = sDefaultLogLevel;
 
     /**
      * Package access allows only {@link AndroidLoggerFactory} to instantiate
@@ -555,38 +555,41 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
             switch (priority) {
                 case Log.VERBOSE:
                     if (throwable != null) {
-                        Log.v(LOG_TAG_STRING, enhanced(name, message), throwable);
+                        Log.v(sLogTagString, enhanced(name, message), throwable);
                     } else {
-                        Log.v(LOG_TAG_STRING, enhanced(name, message));
+                        Log.v(sLogTagString, enhanced(name, message));
                     }
                     break;
                 case Log.DEBUG:
                     if (throwable != null) {
-                        Log.d(LOG_TAG_STRING, enhanced(name, message), throwable);
+                        Log.d(sLogTagString, enhanced(name, message), throwable);
                     } else {
-                        Log.d(LOG_TAG_STRING, enhanced(name, message));
+                        Log.d(sLogTagString, enhanced(name, message));
                     }
                     break;
                 case Log.INFO:
                     if (throwable != null) {
-                        Log.i(LOG_TAG_STRING, enhanced(name, message), throwable);
+                        Log.i(sLogTagString, enhanced(name, message), throwable);
                     } else {
-                        Log.i(LOG_TAG_STRING, enhanced(name, message));
+                        Log.i(sLogTagString, enhanced(name, message));
                     }
                     break;
                 case Log.WARN:
                     if (throwable != null) {
-                        Log.w(LOG_TAG_STRING, enhanced(name, message), throwable);
+                        Log.w(sLogTagString, enhanced(name, message), throwable);
                     } else {
-                        Log.w(LOG_TAG_STRING, enhanced(name, message));
+                        Log.w(sLogTagString, enhanced(name, message));
                     }
                     break;
                 case Log.ERROR:
                     if (throwable != null) {
-                        Log.e(LOG_TAG_STRING, enhanced(name, message), throwable);
+                        Log.e(sLogTagString, enhanced(name, message), throwable);
                     } else {
-                        Log.e(LOG_TAG_STRING, enhanced(name, message));
+                        Log.e(sLogTagString, enhanced(name, message));
                     }
+                    break;
+                default:
+                    // nop
                     break;
             }
         }
@@ -623,7 +626,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     }
 
     private static StackTraceElement determineCaller(final String className) {
-        final StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        final StackTraceElement[] stackTrace = new DetermineCallerException().getStackTrace();
         for (final StackTraceElement element : stackTrace) {
             if (element.getClassName().equalsIgnoreCase(className)) {
                 return element;

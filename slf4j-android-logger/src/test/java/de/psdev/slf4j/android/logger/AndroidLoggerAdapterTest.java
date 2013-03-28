@@ -25,8 +25,8 @@ public class AndroidLoggerAdapterTest {
     @Test
     public void testInitialization() throws Exception {
         final AndroidLoggerAdapter test = new AndroidLoggerAdapter("TEST");
-        Assert.assertEquals("TestLogTag", AndroidLoggerAdapter.LOG_TAG_STRING);
+        Assert.assertEquals("TestLogTag", AndroidLoggerAdapter.sLogTagString);
         Assert.assertEquals("TEST", test.getName());
-        Assert.assertEquals(Log.VERBOSE, AndroidLoggerAdapter.DEFAULT_LOG_LEVEL);
+        Assert.assertEquals(Log.VERBOSE, AndroidLoggerAdapter.sDefaultLogLevel);
     }
 }
