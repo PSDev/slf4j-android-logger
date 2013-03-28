@@ -76,43 +76,36 @@
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     </properties>
 
-        <dependencies>
-            <!-- SLF4J Android Logger -->
-            <dependency>
-                <groupId>de.psdev.slf4j-android-logger</groupId>
-                <artifactId>slf4j-android-logger</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+    <dependencies>
+        <!-- Android -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${android.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-            <!-- Android -->
-            <dependency>
-                <groupId>com.google.android</groupId>
-                <artifactId>android</artifactId>
-                <version>${android.version}</version>
-                <scope>provided</scope>
-            </dependency>
+        <!-- SLF4J Api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
 
-            <!-- SLF4J Api -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j-api.version}</version>
-            </dependency>
-
-            <!-- Testing -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.pivotallabs</groupId>
-                <artifactId>robolectric</artifactId>
-                <version>${robolectric.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.pivotallabs</groupId>
+            <artifactId>robolectric</artifactId>
+            <version>${robolectric.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
