@@ -44,6 +44,9 @@ import com.xtremelabs.robolectric.internal.Implementation;
 import com.xtremelabs.robolectric.internal.Implements;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,6 +129,28 @@ public class EnhancedShadowLog {
     public static int println(final int priority, final String tag, final String msg) {
         addLog(priority, tag, msg, null);
         return msg.length();
+    }
+
+    @Implementation
+    public static String getStackTraceString(Throwable tr) {
+        if (tr == null) {
+            return "";
+        }
+
+        // This is to reduce the amount of log spew that apps do in the non-error
+        // condition of the network being unavailable.
+        Throwable t = tr;
+        while (t != null) {
+            if (t instanceof UnknownHostException) {
+                return "";
+            }
+            t = t.getCause();
+        }
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        tr.printStackTrace(pw);
+        return sw.toString();
     }
 
     @Implementation

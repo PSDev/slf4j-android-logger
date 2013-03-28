@@ -43,13 +43,11 @@ import org.slf4j.Marker;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
-import org.slf4j.spi.LocationAwareLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.StringTokenizer;
 
 /**
  * <p>A simple implementation that delegates all log requests to the Google Android
@@ -84,21 +82,11 @@ import java.util.StringTokenizer;
  * </ul>
  * </p>
  * <p/>
- * <p>Logger instances created using the LoggerFactory are named either according to the name
- * or the fully qualified class name of the class given as a parameter.
- * Each logger name will be used as the log message tag on the Android platform.
- * However, tag names cannot be longer than 23 characters so if logger name exceeds this limit then
- * it will be truncated by the LoggerFactory. The following examples illustrate this.
- * <table border="1">
- * <tr><th><b>Original Name<b></th><th><b>Truncated Name</b></th></tr>
- * <tr><td>org.example.myproject.mypackage.MyClass</td><td>o*.e*.m*.m*.MyClass</td></tr>
- * <tr><td>o.e.myproject.mypackage.MyClass</td><td>o.e.m*.m*.MyClass</td></tr>
- * <tr><td>org.example.ThisNameIsWayTooLongAndWillBeTruncated</td><td>*LongAndWillBeTruncated</td></tr>
- * <tr><td>ThisNameIsWayTooLongAndWillBeTruncated</td><td>*LongAndWillBeTruncated</td></tr>
- * </table>
- * </p>
+ * <p>Logger instances created using the LoggerFactory are named according to the fully qualified
+ * class name of the class given as a parameter.
  *
  * @author Andrey Korzhevskiy <a.korzhevskiy@gmail.com>
+ * @author Philip Schiffer <philip.schiffer@gmail.com
  */
 public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private static final long serialVersionUID = -1227274521521287937L;
@@ -318,7 +306,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param t   the exception (throwable) to log
      */
     public void debug(final String msg, final Throwable t) {
-        log(Log.VERBOSE, msg, t);
+        log(Log.DEBUG, msg, t);
     }
 
     /**
@@ -558,22 +546,50 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private void formatAndLog(final int priority, final String format, final Object... argArray) {
         if (isLevelEnabled(priority)) {
             final FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
-            _log(name, priority, ft.getMessage(), ft.getThrowable());
+            log(priority, ft.getMessage(), ft.getThrowable());
         }
     }
 
     private void log(final int priority, final String message, final Throwable throwable) {
         if (isLevelEnabled(priority)) {
-            _log(name, priority, message, throwable);
+            switch (priority) {
+                case Log.VERBOSE:
+                    if (throwable != null) {
+                        Log.v(LOG_TAG_STRING, enhanced(name, message), throwable);
+                    } else {
+                        Log.v(LOG_TAG_STRING, enhanced(name, message));
+                    }
+                    break;
+                case Log.DEBUG:
+                    if (throwable != null) {
+                        Log.d(LOG_TAG_STRING, enhanced(name, message), throwable);
+                    } else {
+                        Log.d(LOG_TAG_STRING, enhanced(name, message));
+                    }
+                    break;
+                case Log.INFO:
+                    if (throwable != null) {
+                        Log.i(LOG_TAG_STRING, enhanced(name, message), throwable);
+                    } else {
+                        Log.i(LOG_TAG_STRING, enhanced(name, message));
+                    }
+                    break;
+                case Log.WARN:
+                    if (throwable != null) {
+                        Log.w(LOG_TAG_STRING, enhanced(name, message), throwable);
+                    } else {
+                        Log.w(LOG_TAG_STRING, enhanced(name, message));
+                    }
+                    break;
+                case Log.ERROR:
+                    if (throwable != null) {
+                        Log.e(LOG_TAG_STRING, enhanced(name, message), throwable);
+                    } else {
+                        Log.e(LOG_TAG_STRING, enhanced(name, message));
+                    }
+                    break;
+            }
         }
-    }
-
-    private static void _log(final String className, final int priority, final String message, final Throwable throwable) {
-        final StringBuilder messageBuilder = new StringBuilder(enhanced(className, message));
-        if (throwable != null) {
-            messageBuilder.append('\n').append(Log.getStackTraceString(throwable));
-        }
-        Log.println(priority, LOG_TAG_STRING, messageBuilder.toString());
     }
 
     // Property getter
