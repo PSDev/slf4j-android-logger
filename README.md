@@ -5,9 +5,26 @@ This library is based on the official slf4j-android implementation but does diff
 It does not use the classname as the log tag for but instead appends it after the message. It also logs the line number and current thread.
 Configuration of the log tag is done through a properties file (`logger.properties`).
 
+Configuration
+-------------
 
+Create a `logger.properties` file in the classpath and configure it.
 
-Download (not yet working)
+### Available properties:
+
+**Name:** `de.psdev.slf4j.android.logger.logTag`  
+**Description:** The log tag to use when logging to Androids logger. Maximum 23 chars!
+
+**Name:** `de.psdev.slf4j.android.logger.defaultLogLevel`  
+**Values:** `TRACE`|`DEBUG`|`INFO`|`WARN`|`ERROR`
+
+**Example**:
+```properties
+de.psdev.slf4j.android.logger.logTag=MyAwesomeApp
+de.psdev.slf4j.android.logger.defaultLogLevel=DEBUG
+```
+
+Download (not yet available in central)
 --------
 
 Download [the latest JAR][1] or grab via Maven:
