@@ -2,8 +2,8 @@ slf4j-android-logger  [![Build Status](https://travis-ci.org/PSDev/slf4j-android
 ==============
 
 This library is based on the official slf4j-android implementation but does different logging.
-It does not use the classname as the log tag for but instead prefixes the message with the classname.
-Configuration of the log tag is done through a properties file.
+It does not use the classname as the log tag for but instead appends it after the message. It also logs the line number and current thread.
+Configuration of the log tag is done through a properties file (`logger.properties`).
 
 
 
