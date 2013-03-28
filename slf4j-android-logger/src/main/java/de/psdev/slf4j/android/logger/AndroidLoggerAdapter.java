@@ -556,12 +556,16 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     }
 
     private void formatAndLog(final int priority, final String format, final Object... argArray) {
-        final FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
-        _log(name, priority, ft.getMessage(), ft.getThrowable());
+        if (isLevelEnabled(priority)) {
+            final FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
+            _log(name, priority, ft.getMessage(), ft.getThrowable());
+        }
     }
 
     private void log(final int priority, final String message, final Throwable throwable) {
-        _log(name, priority, message, throwable);
+        if (isLevelEnabled(priority)) {
+            _log(name, priority, message, throwable);
+        }
     }
 
     private static void _log(final String className, final int priority, final String message, final Throwable throwable) {
@@ -605,7 +609,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private static StackTraceElement determineCaller(final String className) {
         final StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
         for (final StackTraceElement element : stackTrace) {
-            if(element.getClassName().equalsIgnoreCase(className)) {
+            if (element.getClassName().equalsIgnoreCase(className)) {
                 return element;
             }
         }
