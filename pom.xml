@@ -10,19 +10,14 @@
     </parent>
 
     <groupId>de.psdev.slf4j-android-logger</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>slf4j-android-logger</artifactId>
+    <packaging>jar</packaging>
 
     <name>SLF4J Android Logger</name>
     <description>SLF4J Android binding.</description>
     <url>http://psdev.de/energylogger-parser/</url>
     <inceptionYear>2013</inceptionYear>
     <version>1.0.0-SNAPSHOT</version>
-
-    <modules>
-        <module>slf4j-android-logger</module>
-        <module>test</module>
-    </modules>
 
     <developers>
         <developer>
@@ -81,7 +76,6 @@
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     </properties>
 
-    <dependencyManagement>
         <dependencies>
             <!-- SLF4J Android Logger -->
             <dependency>
@@ -119,7 +113,6 @@
                 <scope>test</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -169,4 +162,33 @@
         </pluginManagement>
     </build>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

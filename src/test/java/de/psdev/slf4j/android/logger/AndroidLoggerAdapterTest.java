@@ -12,15 +12,14 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- *
  */
 
 package de.psdev.slf4j.android.logger;
 
 import android.util.Log;
 import com.xtremelabs.robolectric.Robolectric;
-import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
@@ -28,19 +27,27 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricTestRunner.class)
-public class IntegrationTest {
-
+@RunWith(CustomRobolectricTestRunner.class)
+public class AndroidLoggerAdapterTest {
 
     private Logger mLogger;
 
     @Before
     public void setUp() throws Exception {
         Robolectric.bindShadowClass(EnhancedShadowLog.class);
-        mLogger = LoggerFactory.getLogger(IntegrationTest.class);
+        mLogger = LoggerFactory.getLogger(AndroidLoggerAdapterTest.class);
         EnhancedShadowLog.stream = System.out;
+    }
+
+    @Test
+    public void testInitialization() throws Exception {
+        assertEquals("should have read correct log tag from properties", "TestLogTag", AndroidLoggerAdapter.sLogTagString);
+        assertEquals("should have correct name", AndroidLoggerAdapterTest.class.getName(), mLogger.getName());
+        assertEquals("should have correct log level", Log.VERBOSE, AndroidLoggerAdapter.sDefaultLogLevel);
     }
 
     @Test
@@ -274,7 +281,7 @@ public class IntegrationTest {
         final EnhancedShadowLog.LogItem logItem = EnhancedShadowLog.getLogs().get(0);
         assertEquals("should have correct type", expectedLogLevel, logItem.type);
         assertThat("should contain message", logItem.msg, JUnitMatchers.containsString(expectedContainedText));
-        assertThat("should contain class", logItem.msg, JUnitMatchers.containsString(IntegrationTest.class.getSimpleName()));
+        assertThat("should contain class", logItem.msg, JUnitMatchers.containsString(AndroidLoggerAdapterTest.class.getSimpleName()));
         assertEquals("should have correct log tag", "TestLogTag", logItem.tag);
         if (expectedThrowable != null) {
             assertEquals("should have logged the correct throwable", expectedThrowable, logItem.throwable);
