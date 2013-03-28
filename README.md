@@ -14,7 +14,7 @@ Download [the latest JAR][1] or grab via Maven:
 
 ```xml
 <dependency>
-  <groupId>de.psdev</groupId>
+  <groupId>de.psdev.slf4j-android-logger</groupId>
   <artifactId>slf4j-android-logger</artifactId>
   <version>1.0.0</version>
 </dependency>
