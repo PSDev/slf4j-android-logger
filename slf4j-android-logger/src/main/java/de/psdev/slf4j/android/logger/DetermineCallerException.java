@@ -1,6 +1,7 @@
 package de.psdev.slf4j.android.logger;
 
 public class DetermineCallerException extends RuntimeException {
+    private static final long serialVersionUID = -6987929757213786107L;
 
     public DetermineCallerException() {
     }
@@ -15,9 +16,5 @@ public class DetermineCallerException extends RuntimeException {
 
     public DetermineCallerException(final Throwable cause) {
         super(cause);
-    }
-
-    public DetermineCallerException(final String message, final Throwable cause, final boolean enableSuppression, final boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
