@@ -11,12 +11,13 @@
 
     <groupId>de.psdev.slf4j-android-logger</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>SLF4J Android Logger</name>
-
+    <description>SLF4J Android binding.</description>
+    <url>http://psdev.de/energylogger-parser/</url>
     <inceptionYear>2013</inceptionYear>
+    <version>1.0.0-SNAPSHOT</version>
 
     <modules>
         <module>slf4j-android-logger</module>
