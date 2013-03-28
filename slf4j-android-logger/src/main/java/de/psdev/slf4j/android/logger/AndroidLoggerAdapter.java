@@ -158,7 +158,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * The current log level
      */
-    protected int currentLogLevel = LOG_LEVEL_INFO;
+    protected int currentLogLevel = DEFAULT_LOG_LEVEL;
 
     /**
      * Package access allows only {@link AndroidLoggerFactory} to instantiate
