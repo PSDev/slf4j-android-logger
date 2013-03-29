@@ -1,4 +1,4 @@
-slf4j-android-logger  [![Build Status](https://travis-ci.org/PSDev/slf4j-android-logger.png?branch=master)](https://travis-ci.org/PSDev/slf4j-android-logger)
+slf4j-android-logger  [![Build Status](https://travis-ci.org/PSDev/slf4j-android-logger.png?branch=master)](https://travis-ci.org/PSDev/slf4j-android-logger) [![Build Status](https://ci.psdev.de/job/PSDevSLF4JAndroidLogger/badge/icon)](https://ci.psdev.de/job/PSDevSLF4JAndroidLogger/)
 ==============
 
 This library is based on the official slf4j-android implementation but with some differences.
