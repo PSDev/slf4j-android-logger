@@ -157,7 +157,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     AndroidLoggerAdapter(final String tag) {
         name = tag;
-        mClassNamePattern = Pattern.compile(name + "\\$+.*?");
+        mClassNamePattern = Pattern.compile(name + "(\\$+.*)?");
     }
 
     public static int getLogLevel() {
