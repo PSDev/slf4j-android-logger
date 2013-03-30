@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**
  * <p>A simple implementation that delegates all log requests to the Google Android
@@ -143,6 +144,8 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         setLogTag(getStringProperty(LOG_TAG_KEY, "Slf4jAndroidLogger"));
     }
 
+    private final Pattern mClassNamePattern;
+
     /**
      * The current log level
      */
@@ -154,6 +157,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     AndroidLoggerAdapter(final String tag) {
         name = tag;
+        mClassNamePattern = Pattern.compile(name + "\\$+.*?");
     }
 
     public static int getLogLevel() {
@@ -591,43 +595,43 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
-    private void logAndroidVerbose(String message, Throwable throwable) {
+    private void logAndroidVerbose(final String message, final Throwable throwable) {
         if (throwable != null) {
-            Log.v(getLogTag(), enhanced(name, message), throwable);
+            Log.v(getLogTag(), enhanced(message), throwable);
         } else {
-            Log.v(getLogTag(), enhanced(name, message));
+            Log.v(getLogTag(), enhanced(message));
         }
     }
 
-    private void logAndroidDebug(String message, Throwable throwable) {
+    private void logAndroidDebug(final String message, final Throwable throwable) {
         if (throwable != null) {
-            Log.d(getLogTag(), enhanced(name, message), throwable);
+            Log.d(getLogTag(), enhanced(message), throwable);
         } else {
-            Log.d(getLogTag(), enhanced(name, message));
+            Log.d(getLogTag(), enhanced(message));
         }
     }
 
-    private void logAndroidInfo(String message, Throwable throwable) {
+    private void logAndroidInfo(final String message, final Throwable throwable) {
         if (throwable != null) {
-            Log.i(getLogTag(), enhanced(name, message), throwable);
+            Log.i(getLogTag(), enhanced(message), throwable);
         } else {
-            Log.i(getLogTag(), enhanced(name, message));
+            Log.i(getLogTag(), enhanced(message));
         }
     }
 
-    private void logAndroidWarn(String message, Throwable throwable) {
+    private void logAndroidWarn(final String message, final Throwable throwable) {
         if (throwable != null) {
-            Log.w(getLogTag(), enhanced(name, message), throwable);
+            Log.w(getLogTag(), enhanced(message), throwable);
         } else {
-            Log.w(getLogTag(), enhanced(name, message));
+            Log.w(getLogTag(), enhanced(message));
         }
     }
 
-    private void logAndroidError(String message, Throwable throwable) {
+    private void logAndroidError(final String message, final Throwable throwable) {
         if (throwable != null) {
-            Log.e(getLogTag(), enhanced(name, message), throwable);
+            Log.e(getLogTag(), enhanced(message), throwable);
         } else {
-            Log.e(getLogTag(), enhanced(name, message));
+            Log.e(getLogTag(), enhanced(message));
         }
     }
 
@@ -652,19 +656,19 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         return prop == null ? defaultValue : "true".equalsIgnoreCase(prop);
     }
 
-    private static String enhanced(final String className, final String message) {
-        final StackTraceElement caller = determineCaller(className);
+    private String enhanced(final String message) {
+        final StackTraceElement caller = determineCaller();
         final String classNameOnly = getClassNameOnly(caller.getClassName());
         final String methodName = caller.getMethodName();
         final int lineNumber = caller.getLineNumber();
         final Thread thread = Thread.currentThread();
-        return String.format(Locale.ENGLISH, "%s [%s:%s:%s] %s", message, classNameOnly, methodName, lineNumber, thread);
+        return String.format(Locale.US, "%s [%s:%s:%s] %s", message, classNameOnly, methodName, lineNumber, thread);
     }
 
-    private static StackTraceElement determineCaller(final String className) {
+    private StackTraceElement determineCaller() {
         final StackTraceElement[] stackTrace = new DetermineCallerException().getStackTrace();
         for (final StackTraceElement element : stackTrace) {
-            if (element.getClassName().equalsIgnoreCase(className)) {
+            if (mClassNamePattern.matcher(element.getClassName()).matches()) {
                 return element;
             }
         }

@@ -21,7 +21,6 @@ import com.xtremelabs.robolectric.Robolectric;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.matchers.JUnitMatchers;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 @RunWith(CustomRobolectricTestRunner.class)
 public class AndroidLoggerAdapterTest {
@@ -264,6 +264,14 @@ public class AndroidLoggerAdapterTest {
         assertLog(Log.ERROR, "test error", exception);
     }
 
+    @Test
+    public void testInnerclassMatching() throws Exception {
+        final InnerClassTest innerClassTest = new InnerClassTest();
+        innerClassTest.doSomething();
+        assertLog(Log.INFO, "inner class match");
+        assertThat("should contain correct class name", EnhancedShadowLog.getLogs().get(0).msg, containsString("InnerClassTest"));
+    }
+
     @After
     public void tearDown() throws Exception {
         EnhancedShadowLog.reset();
@@ -279,11 +287,17 @@ public class AndroidLoggerAdapterTest {
         assertEquals("should have logged 1 message", 1L, EnhancedShadowLog.getLogs().size());
         final EnhancedShadowLog.LogItem logItem = EnhancedShadowLog.getLogs().get(0);
         assertEquals("should have correct type", expectedLogLevel, logItem.type);
-        assertThat("should contain message", logItem.msg, JUnitMatchers.containsString(expectedContainedText));
-        assertThat("should contain class", logItem.msg, JUnitMatchers.containsString(AndroidLoggerAdapterTest.class.getSimpleName()));
+        assertThat("should contain message", logItem.msg, containsString(expectedContainedText));
+        assertThat("should contain class", logItem.msg, containsString(AndroidLoggerAdapterTest.class.getSimpleName()));
         assertEquals("should have correct log tag", "TestLogTag", logItem.tag);
         if (expectedThrowable != null) {
             assertEquals("should have logged the correct throwable", expectedThrowable, logItem.throwable);
+        }
+    }
+
+    class InnerClassTest {
+        public void doSomething() {
+            mLogger.info("inner class match");
         }
     }
 }
