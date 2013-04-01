@@ -24,7 +24,7 @@ de.psdev.slf4j.android.logger.logTag=MyAwesomeApp
 de.psdev.slf4j.android.logger.defaultLogLevel=DEBUG
 ```
 
-Download (not yet available in central)
+Download
 --------
 
 Download [the latest JAR][1] or grab via Maven:
