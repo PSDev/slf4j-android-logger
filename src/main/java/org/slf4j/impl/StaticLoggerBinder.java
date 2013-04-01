@@ -49,7 +49,7 @@ import org.slf4j.spi.LoggerFactoryBinder;
  *
  * @author Ceki G&uuml;lc&uuml;
  */
-public class StaticLoggerBinder implements LoggerFactoryBinder {
+public final class StaticLoggerBinder implements LoggerFactoryBinder {
 
     /**
      * The unique instance of this class.

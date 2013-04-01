@@ -47,7 +47,7 @@ import org.slf4j.spi.MDCAdapter;
  *
  * @author Ceki G&uuml;lc&uuml;
  */
-public class StaticMDCBinder {
+public final class StaticMDCBinder {
 
   /**
    * The unique instance of this class.

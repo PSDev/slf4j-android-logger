@@ -49,14 +49,14 @@ import org.slf4j.spi.MarkerFactoryBinder;
  *
  * @author Ceki G&uuml;lc&uuml;
  */
-public class StaticMarkerBinder implements MarkerFactoryBinder {
+public final class StaticMarkerBinder implements MarkerFactoryBinder {
 
   /**
    * The unique instance of this class.
    */
   public static final StaticMarkerBinder SINGLETON = new StaticMarkerBinder();
 
-  final IMarkerFactory markerFactory = new BasicMarkerFactory();
+  private final IMarkerFactory markerFactory = new BasicMarkerFactory();
 
   private StaticMarkerBinder() {
   }
