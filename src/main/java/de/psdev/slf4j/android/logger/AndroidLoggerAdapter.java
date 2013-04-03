@@ -662,7 +662,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         final String methodName = caller.getMethodName();
         final int lineNumber = caller.getLineNumber();
         final Thread thread = Thread.currentThread();
-        return String.format(Locale.US, "%s [%s:%s:%s] %s", message, classNameOnly, methodName, lineNumber, thread);
+        return String.format(Locale.ENGLISH, "%s [%s:%s:%s] %s", message, classNameOnly, methodName, lineNumber, thread);
     }
 
     private StackTraceElement determineCaller() {
