@@ -63,15 +63,15 @@
 
         <!-- Dependency Versions -->
         <android.version>4.1.1.4</android.version>
-        <slf4j-api.version>1.7.4</slf4j-api.version>
-        <junit.version>4.10</junit.version>
-        <robolectric.version>1.2</robolectric.version>
+        <slf4j-api.version>1.7.5</slf4j-api.version>
+        <junit.version>4.11</junit.version>
+        <robolectric.version>2.1.1</robolectric.version>
 
         <!-- Plugin Versions -->
-        <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
-        <maven-release-plugin.version>2.4</maven-release-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     </properties>
 
@@ -99,7 +99,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.pivotallabs</groupId>
+            <groupId>org.robolectric</groupId>
             <artifactId>robolectric</artifactId>
             <version>${robolectric.version}</version>
             <scope>test</scope>

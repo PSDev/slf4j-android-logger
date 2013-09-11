@@ -40,8 +40,8 @@
 package de.psdev.slf4j.android.logger;
 
 import android.util.Log;
-import com.xtremelabs.robolectric.internal.Implementation;
-import com.xtremelabs.robolectric.internal.Implements;
+import org.robolectric.annotation.Implementation;
+import org.robolectric.annotation.Implements;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;

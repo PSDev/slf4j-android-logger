@@ -17,34 +17,34 @@
 package de.psdev.slf4j.android.logger;
 
 import android.util.Log;
-import com.xtremelabs.robolectric.Robolectric;
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.junit.Assert.*;
 
-@RunWith(CustomRobolectricTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(manifest = Config.NONE, shadows = {EnhancedShadowLog.class})
 public class AndroidLoggerAdapterTest {
 
     private Logger mLogger;
 
     @Before
     public void setUp() throws Exception {
-        Robolectric.bindShadowClass(EnhancedShadowLog.class);
         mLogger = LoggerFactory.getLogger(AndroidLoggerAdapterTest.class);
         EnhancedShadowLog.stream = System.out;
     }
 
     @Test
     public void testInitialization() throws Exception {
-        assertEquals("should have read correct log tag from properties", "TestLogTag", AndroidLoggerAdapter.getLogTag());
+        assertEquals("should have read correct log tag from properties", "TestLogTag",
+                AndroidLoggerAdapter.getLogTag());
         assertEquals("should have correct name", AndroidLoggerAdapterTest.class.getName(), mLogger.getName());
         assertEquals("should have correct log level", Log.VERBOSE, AndroidLoggerAdapter.getLogLevel());
     }
@@ -269,7 +269,8 @@ public class AndroidLoggerAdapterTest {
         final InnerClassTest innerClassTest = new InnerClassTest();
         innerClassTest.doSomething();
         assertLog(Log.INFO, "inner class match");
-        assertThat("should contain correct class name", EnhancedShadowLog.getLogs().get(0).msg, containsString("InnerClassTest"));
+        assertThat("should contain correct class name", EnhancedShadowLog.getLogs().get(0).msg,
+                CoreMatchers.containsString("InnerClassTest"));
     }
 
     @After
@@ -283,12 +284,14 @@ public class AndroidLoggerAdapterTest {
         assertLog(expectedLogLevel, expectedContainedText, null);
     }
 
-    private static void assertLog(final int expectedLogLevel, final String expectedContainedText, final Throwable expectedThrowable) {
+    private static void assertLog(final int expectedLogLevel, final String expectedContainedText,
+                                  final Throwable expectedThrowable) {
         assertEquals("should have logged 1 message", 1L, EnhancedShadowLog.getLogs().size());
         final EnhancedShadowLog.LogItem logItem = EnhancedShadowLog.getLogs().get(0);
         assertEquals("should have correct type", expectedLogLevel, logItem.type);
-        assertThat("should contain message", logItem.msg, containsString(expectedContainedText));
-        assertThat("should contain class", logItem.msg, containsString(AndroidLoggerAdapterTest.class.getSimpleName()));
+        assertThat("should contain message", logItem.msg, CoreMatchers.containsString(expectedContainedText));
+        assertThat("should contain class", logItem.msg, CoreMatchers.containsString(
+                AndroidLoggerAdapterTest.class.getSimpleName()));
         assertEquals("should have correct log tag", "TestLogTag", logItem.tag);
         if (expectedThrowable != null) {
             assertEquals("should have logged the correct throwable", expectedThrowable, logItem.throwable);
