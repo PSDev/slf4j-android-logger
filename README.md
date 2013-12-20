@@ -33,7 +33,7 @@ Download [the latest JAR][1] or grab via Maven:
 <dependency>
   <groupId>de.psdev.slf4j-android-logger</groupId>
   <artifactId>slf4j-android-logger</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
