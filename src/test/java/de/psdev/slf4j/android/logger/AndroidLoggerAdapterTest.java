@@ -16,7 +16,10 @@
 
 package de.psdev.slf4j.android.logger;
 
-import android.util.Log;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -27,10 +30,10 @@ import org.robolectric.annotation.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.*;
+import android.util.Log;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE, shadows = {EnhancedShadowLog.class})
+@Config(manifest = Config.NONE, shadows = { EnhancedShadowLog.class })
 public class AndroidLoggerAdapterTest {
 
     private Logger mLogger;
@@ -44,9 +47,9 @@ public class AndroidLoggerAdapterTest {
     @Test
     public void testInitialization() throws Exception {
         assertEquals("should have read correct log tag from properties", "TestLogTag",
-                AndroidLoggerAdapter.getLogTag());
+            AndroidLoggerAdapter.getLogTag());
         assertEquals("should have correct name", AndroidLoggerAdapterTest.class.getName(), mLogger.getName());
-        assertEquals("should have correct log level", Log.VERBOSE, AndroidLoggerAdapter.getLogLevel());
+        assertEquals("should have correct log level", LogLevel.TRACE, AndroidLoggerAdapter.getLogLevel());
     }
 
     @Test
@@ -270,7 +273,7 @@ public class AndroidLoggerAdapterTest {
         innerClassTest.doSomething();
         assertLog(Log.INFO, "inner class match");
         assertThat("should contain correct class name", EnhancedShadowLog.getLogs().get(0).msg,
-                CoreMatchers.containsString("InnerClassTest"));
+            CoreMatchers.containsString("InnerClassTest"));
     }
 
     @After
@@ -291,7 +294,7 @@ public class AndroidLoggerAdapterTest {
         assertEquals("should have correct type", expectedLogLevel, logItem.type);
         assertThat("should contain message", logItem.msg, CoreMatchers.containsString(expectedContainedText));
         assertThat("should contain class", logItem.msg, CoreMatchers.containsString(
-                AndroidLoggerAdapterTest.class.getSimpleName()));
+            AndroidLoggerAdapterTest.class.getSimpleName()));
         assertEquals("should have correct log tag", "TestLogTag", logItem.tag);
         if (expectedThrowable != null) {
             assertEquals("should have logged the correct throwable", expectedThrowable, logItem.throwable);
@@ -299,6 +302,7 @@ public class AndroidLoggerAdapterTest {
     }
 
     class InnerClassTest {
+
         public void doSomething() {
             mLogger.info("inner class match");
         }

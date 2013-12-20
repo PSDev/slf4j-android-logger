@@ -99,14 +99,8 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private static final String CONFIGURATION_FILE = "logger.properties";
     private static final Properties ANDROID_LOGGER_PROPERTIES = new Properties();
 
-    // Log levels
-    private static final int LOG_LEVEL_TRACE = Log.VERBOSE;
-    private static final int LOG_LEVEL_DEBUG = Log.DEBUG;
-    private static final int LOG_LEVEL_INFO = Log.INFO;
-    private static final int LOG_LEVEL_WARN = Log.WARN;
-    private static final int LOG_LEVEL_ERROR = Log.ERROR;
-
-    private static int sLogLevel = LOG_LEVEL_INFO;
+    // Current log level and tag
+    private static LogLevel sLogLevel = LogLevel.INFO;
     private static String sLogTag = "Slf4jAndroidLogger";
 
     /**
@@ -147,11 +141,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     private final Pattern mClassNamePattern;
 
     /**
-     * The current log level
-     */
-    private int currentLogLevel = getLogLevel();
-
-    /**
      * Package access allows only {@link AndroidLoggerFactory} to instantiate
      * SimpleLogger instances.
      */
@@ -160,11 +149,11 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         mClassNamePattern = Pattern.compile(name + "(\\$+.*)?");
     }
 
-    public static int getLogLevel() {
+    public static LogLevel getLogLevel() {
         return sLogLevel;
     }
 
-    public static void setLogLevel(final int logLevel) {
+    public static void setLogLevel(final LogLevel logLevel) {
         sLogLevel = logLevel;
     }
 
@@ -181,8 +170,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @return True if this Logger is enabled for level VERBOSE, false otherwise.
      */
+    @Override
     public boolean isTraceEnabled() {
-        return isLevelEnabled(LOG_LEVEL_TRACE);
+        return isLevelEnabled(LogLevel.TRACE);
     }
 
     /**
@@ -190,8 +180,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param msg - the message object to be logged
      */
+    @Override
     public void trace(final String msg) {
-        log(Log.VERBOSE, msg, null);
+        log(LogLevel.TRACE, msg, null);
     }
 
     /**
@@ -206,8 +197,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format the format string
      * @param arg    the argument
      */
+    @Override
     public void trace(final String format, final Object arg) {
-        formatAndLog(Log.VERBOSE, format, arg);
+        formatAndLog(LogLevel.TRACE, format, arg);
     }
 
     /**
@@ -223,8 +215,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param arg1   the first argument
      * @param arg2   the second argument
      */
+    @Override
     public void trace(final String format, final Object arg1, final Object arg2) {
-        formatAndLog(Log.VERBOSE, format, arg1, arg2);
+        formatAndLog(LogLevel.TRACE, format, arg1, arg2);
     }
 
     /**
@@ -239,8 +232,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format   the format string
      * @param argArray an array of arguments
      */
+    @Override
     public void trace(final String format, final Object... argArray) {
-        formatAndLog(Log.VERBOSE, format, argArray);
+        formatAndLog(LogLevel.TRACE, format, argArray);
     }
 
     /**
@@ -249,8 +243,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param msg the message accompanying the exception
      * @param t   the exception (throwable) to log
      */
+    @Override
     public void trace(final String msg, final Throwable t) {
-        log(Log.VERBOSE, msg, t);
+        log(LogLevel.TRACE, msg, t);
     }
 
     /**
@@ -258,8 +253,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @return True if this Logger is enabled for level DEBUG, false otherwise.
      */
+    @Override
     public boolean isDebugEnabled() {
-        return isLevelEnabled(LOG_LEVEL_DEBUG);
+        return isLevelEnabled(LogLevel.DEBUG);
     }
 
     /**
@@ -267,8 +263,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param msg - the message object to be logged
      */
+    @Override
     public void debug(final String msg) {
-        log(Log.DEBUG, msg, null);
+        log(LogLevel.DEBUG, msg, null);
     }
 
     /**
@@ -282,8 +279,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format the format string
      * @param arg    the argument
      */
+    @Override
     public void debug(final String format, final Object arg) {
-        formatAndLog(Log.DEBUG, format, arg);
+        formatAndLog(LogLevel.DEBUG, format, arg);
     }
 
     /**
@@ -299,8 +297,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param arg1   the first argument
      * @param arg2   the second argument
      */
+    @Override
     public void debug(final String format, final Object arg1, final Object arg2) {
-        formatAndLog(Log.DEBUG, format, arg1, arg2);
+        formatAndLog(LogLevel.DEBUG, format, arg1, arg2);
     }
 
     /**
@@ -315,8 +314,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format   the format string
      * @param argArray an array of arguments
      */
+    @Override
     public void debug(final String format, final Object... argArray) {
-        formatAndLog(Log.DEBUG, format, argArray);
+        formatAndLog(LogLevel.DEBUG, format, argArray);
     }
 
     /**
@@ -325,8 +325,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param msg the message accompanying the exception
      * @param t   the exception (throwable) to log
      */
+    @Override
     public void debug(final String msg, final Throwable t) {
-        log(Log.DEBUG, msg, t);
+        log(LogLevel.DEBUG, msg, t);
     }
 
     /**
@@ -334,8 +335,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @return True if this Logger is enabled for the INFO level, false otherwise.
      */
+    @Override
     public boolean isInfoEnabled() {
-        return isLevelEnabled(LOG_LEVEL_INFO);
+        return isLevelEnabled(LogLevel.INFO);
     }
 
     /**
@@ -343,8 +345,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param msg - the message object to be logged
      */
+    @Override
     public void info(final String msg) {
-        log(Log.INFO, msg, null);
+        log(LogLevel.INFO, msg, null);
     }
 
     /**
@@ -358,8 +361,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format the format string
      * @param arg    the argument
      */
+    @Override
     public void info(final String format, final Object arg) {
-        formatAndLog(Log.INFO, format, arg);
+        formatAndLog(LogLevel.INFO, format, arg);
     }
 
     /**
@@ -375,8 +379,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param arg1   the first argument
      * @param arg2   the second argument
      */
+    @Override
     public void info(final String format, final Object arg1, final Object arg2) {
-        formatAndLog(Log.INFO, format, arg1, arg2);
+        formatAndLog(LogLevel.INFO, format, arg1, arg2);
     }
 
     /**
@@ -391,8 +396,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format   the format string
      * @param argArray an array of arguments
      */
+    @Override
     public void info(final String format, final Object... argArray) {
-        formatAndLog(Log.INFO, format, argArray);
+        formatAndLog(LogLevel.INFO, format, argArray);
     }
 
     /**
@@ -402,8 +408,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param msg the message accompanying the exception
      * @param t   the exception (throwable) to log
      */
+    @Override
     public void info(final String msg, final Throwable t) {
-        log(Log.INFO, msg, t);
+        log(LogLevel.INFO, msg, t);
     }
 
     /**
@@ -412,8 +419,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @return True if this Logger is enabled for the WARN level, false
      *         otherwise.
      */
+    @Override
     public boolean isWarnEnabled() {
-        return isLevelEnabled(LOG_LEVEL_WARN);
+        return isLevelEnabled(LogLevel.WARN);
     }
 
     /**
@@ -421,8 +429,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param msg - the message object to be logged
      */
+    @Override
     public void warn(final String msg) {
-        log(Log.WARN, msg, null);
+        log(LogLevel.WARN, msg, null);
     }
 
     /**
@@ -437,8 +446,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format the format string
      * @param arg    the argument
      */
+    @Override
     public void warn(final String format, final Object arg) {
-        formatAndLog(Log.WARN, format, arg);
+        formatAndLog(LogLevel.WARN, format, arg);
     }
 
     /**
@@ -454,8 +464,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param arg1   the first argument
      * @param arg2   the second argument
      */
+    @Override
     public void warn(final String format, final Object arg1, final Object arg2) {
-        formatAndLog(Log.WARN, format, arg1, arg2);
+        formatAndLog(LogLevel.WARN, format, arg1, arg2);
     }
 
     /**
@@ -470,8 +481,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format   the format string
      * @param argArray an array of arguments
      */
+    @Override
     public void warn(final String format, final Object... argArray) {
-        formatAndLog(Log.WARN, format, argArray);
+        formatAndLog(LogLevel.WARN, format, argArray);
     }
 
     /**
@@ -481,8 +493,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param msg the message accompanying the exception
      * @param t   the exception (throwable) to log
      */
+    @Override
     public void warn(final String msg, final Throwable t) {
-        log(Log.WARN, msg, t);
+        log(LogLevel.WARN, msg, t);
     }
 
     /**
@@ -490,8 +503,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @return True if this Logger is enabled for level ERROR, false otherwise.
      */
+    @Override
     public boolean isErrorEnabled() {
-        return isLevelEnabled(LOG_LEVEL_ERROR);
+        return isLevelEnabled(LogLevel.ERROR);
     }
 
     /**
@@ -499,8 +513,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param msg - the message object to be logged
      */
+    @Override
     public void error(final String msg) {
-        log(Log.ERROR, msg, null);
+        log(LogLevel.ERROR, msg, null);
     }
 
     /**
@@ -515,8 +530,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format the format string
      * @param arg    the argument
      */
+    @Override
     public void error(final String format, final Object arg) {
-        formatAndLog(Log.ERROR, format, arg);
+        formatAndLog(LogLevel.ERROR, format, arg);
     }
 
     /**
@@ -532,8 +548,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param arg1   the first argument
      * @param arg2   the second argument
      */
+    @Override
     public void error(final String format, final Object arg1, final Object arg2) {
-        formatAndLog(Log.ERROR, format, arg1, arg2);
+        formatAndLog(LogLevel.ERROR, format, arg1, arg2);
     }
 
     /**
@@ -548,8 +565,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param format   the format string
      * @param argArray an array of arguments
      */
+    @Override
     public void error(final String format, final Object... argArray) {
-        formatAndLog(Log.ERROR, format, argArray);
+        formatAndLog(LogLevel.ERROR, format, argArray);
     }
 
     /**
@@ -559,20 +577,21 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * @param msg the message accompanying the exception
      * @param t   the exception (throwable) to log
      */
+    @Override
     public void error(final String msg, final Throwable t) {
-        log(Log.ERROR, msg, t);
+        log(LogLevel.ERROR, msg, t);
     }
 
-    private void formatAndLog(final int priority, final String format, final Object... argArray) {
-        if (isLevelEnabled(priority)) {
+    private void formatAndLog(final LogLevel logLevel, final String format, final Object... argArray) {
+        if (isLevelEnabled(logLevel)) {
             final FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
-            log(priority, ft.getMessage(), ft.getThrowable());
+            log(logLevel, ft.getMessage(), ft.getThrowable());
         }
     }
 
-    private void log(final int priority, final String message, final Throwable throwable) {
-        if (isLevelEnabled(priority)) {
-            switch (priority) {
+    private void log(final LogLevel logLevel, final String message, final Throwable throwable) {
+        if (isLevelEnabled(logLevel)) {
+            switch (logLevel.getAndroidLogLevel()) {
                 case Log.VERBOSE:
                     logAndroidVerbose(message, throwable);
                     break;
@@ -688,24 +707,28 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      *
      * @param logLevel is this level enabled?
      */
-    protected boolean isLevelEnabled(final int logLevel) {
+    protected static boolean isLevelEnabled(final LogLevel logLevel) {
         // log level are numerically ordered so can use simple numeric comparison
-        return logLevel >= currentLogLevel;
+        return logLevel.getAndroidLogLevel() >= sLogLevel.getAndroidLogLevel();
     }
 
-    private static int stringToLevel(final String levelStr) {
+    private static LogLevel stringToLevel(final String levelStr) {
         if ("trace".equalsIgnoreCase(levelStr)) {
-            return LOG_LEVEL_TRACE;
-        } else if ("debug".equalsIgnoreCase(levelStr)) {
-            return LOG_LEVEL_DEBUG;
-        } else if ("info".equalsIgnoreCase(levelStr)) {
-            return LOG_LEVEL_INFO;
-        } else if ("warn".equalsIgnoreCase(levelStr)) {
-            return LOG_LEVEL_WARN;
-        } else if ("error".equalsIgnoreCase(levelStr)) {
-            return LOG_LEVEL_ERROR;
+            return LogLevel.TRACE;
+        }
+        if ("verbose".equalsIgnoreCase(levelStr)) {
+            return LogLevel.TRACE;
+        }
+        if ("info".equalsIgnoreCase(levelStr)) {
+            return LogLevel.INFO;
+        }
+        if ("warn".equalsIgnoreCase(levelStr)) {
+            return LogLevel.WARN;
+        }
+        if ("error".equalsIgnoreCase(levelStr)) {
+            return LogLevel.ERROR;
         }
         // assume INFO by default
-        return LOG_LEVEL_INFO;
+        return LogLevel.INFO;
     }
 }
