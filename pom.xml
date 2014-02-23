@@ -63,7 +63,7 @@
 
         <!-- Dependency Versions -->
         <android.version>4.1.1.4</android.version>
-        <slf4j-api.version>1.7.5</slf4j-api.version>
+        <slf4j-api.version>1.7.6</slf4j-api.version>
         <junit.version>4.11</junit.version>
         <robolectric.version>2.2</robolectric.version>
 
