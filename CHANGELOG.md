@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 1.0.4 *(IN DEVELOPMENT)*
+Version 1.0.4 *(2014-07-27)*
 --------------------------------
 
 * Fixed DEBUG level error (#3)
