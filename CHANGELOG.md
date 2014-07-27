@@ -4,6 +4,8 @@ Change Log
 Version 1.0.4 *(IN DEVELOPMENT)*
 --------------------------------
 
+* Fixed DEBUG level error (#3)
+
 Version 1.0.3 *(2014-06-01)*
 ----------------------------
 
