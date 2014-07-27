@@ -417,7 +417,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
      * Is this logger instance enabled for the WARN level?
      *
      * @return True if this Logger is enabled for the WARN level, false
-     *         otherwise.
+     * otherwise.
      */
     @Override
     public boolean isWarnEnabled() {
@@ -718,6 +718,9 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
         }
         if ("verbose".equalsIgnoreCase(levelStr)) {
             return LogLevel.TRACE;
+        }
+        if ("debug".equalsIgnoreCase(levelStr)) {
+            return LogLevel.DEBUG;
         }
         if ("info".equalsIgnoreCase(levelStr)) {
             return LogLevel.INFO;
