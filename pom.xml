@@ -68,12 +68,12 @@
         <slf4j-api.version>1.7.7</slf4j-api.version>
 
         <!-- Plugin Versions -->
-        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
         <maven-source-plugin.version>2.3</maven-source-plugin.version>
         <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
-        <jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
     </properties>
 
     <dependencies>
