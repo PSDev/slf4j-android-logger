@@ -1,4 +1,4 @@
-slf4j-android-logger  [![Build Status](http://ci.psdev.de/job/PSDevSLF4JAndroidLogger/badge/icon)](http://ci.psdev.de/job/PSDevSLF4JAndroidLogger/) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.psdev.slf4j-android-logger/slf4j-android-logger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.psdev.slf4j-android-logger/slf4j-android-logger)
+slf4j-android-logger  [![Build Status](https://ci.psdev.de/job/PSDevSLF4JAndroidLogger/badge/icon)](https://ci.psdev.de/job/PSDevSLF4JAndroidLogger/) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.psdev.slf4j-android-logger/slf4j-android-logger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.psdev.slf4j-android-logger/slf4j-android-logger)
 ==============
 
 This library is based on the official slf4j-android implementation but with some differences.
