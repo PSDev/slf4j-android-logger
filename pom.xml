@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
+        <relativePath />
     </parent>
 
     <groupId>de.psdev.slf4j-android-logger</groupId>
@@ -52,7 +54,7 @@
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/PSDev/slf4j-android-logger</url>
+        <url>https://ci.psdev.de/job/PSDevSLF4JAndroidLogger/</url>
     </ciManagement>
 
     <properties>
@@ -62,18 +64,18 @@
         <java.version>1.6</java.version>
 
         <!-- Dependency Versions -->
-        <junit.version>4.11</junit.version>
-        <robolectric.version>2.3</robolectric.version>
-        <android.version>4.1.1.4</android.version>
-        <slf4j-api.version>1.7.7</slf4j-api.version>
+        <junit.version>4.12</junit.version>
+        <robolectric.version>3.0</robolectric.version>
+        <android.version>6.0_r3</android.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
 
         <!-- Plugin Versions -->
-        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
-        <maven-source-plugin.version>2.3</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
-        <maven-release-plugin.version>2.5</maven-release-plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -136,6 +138,29 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>**/R.java</sourceFileExclude>
+                    </sourceFileExcludes>
+                    <failOnError>false</failOnError>
+                    <tags>
+                        <tag>
+                            <name>attr</name>
+                            <placement>t</placement>
+                            <head>Attribute:</head>
+                        </tag>
+                        <tag>
+                            <name>hide</name>
+                            <placement>x</placement>
+                        </tag>
+                        <tag>
+                            <name>note</name>
+                            <placement>a</placement>
+                            <head>Note:</head>
+                        </tag>
+                    </tags>
+                    <quiet>true</quiet>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -160,6 +185,8 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
+                    <inclNoLocationClasses>true</inclNoLocationClasses>
+                    <inclBootstrapClasses>true</inclBootstrapClasses>
                     <excludes>
                         <exclude>**/BuildConfig.class</exclude>
                         <exclude>**/R*.class</exclude>
