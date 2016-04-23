@@ -17,7 +17,7 @@
     <description>SLF4J Android binding.</description>
     <url>http://psdev.de/slf4j-android-logger/</url>
     <inceptionYear>2013</inceptionYear>
-    <version>1.0.5</version>
+    <version>1.0.6-SNAPSHOT</version>
 
     <developers>
         <developer>
@@ -43,7 +43,7 @@
         <url>https://github.com/PSDev/slf4j-android-logger</url>
         <connection>scm:git:git://github.com/PSDev/slf4j-android-logger.git</connection>
         <developerConnection>scm:git:git@github.com:PSDev/slf4j-android-logger.git</developerConnection>
-        <tag>1.0.5</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
