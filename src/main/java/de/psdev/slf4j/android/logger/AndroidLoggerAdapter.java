@@ -270,7 +270,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
 
     /**
      * Log a message at level DEBUG according to the specified format and argument.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for level DEBUG.
@@ -287,7 +286,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at level DEBUG according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the DEBUG level.
@@ -305,7 +303,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at level DEBUG according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the DEBUG level.
@@ -352,7 +349,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
 
     /**
      * Log a message at level INFO according to the specified format and argument.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the INFO level.
@@ -369,7 +365,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at the INFO level according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the INFO level.
@@ -387,7 +382,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at level INFO according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the INFO level.
@@ -437,7 +431,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at the WARN level according to the specified format and
      * argument.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the WARN level.
@@ -454,7 +447,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at the WARN level according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the WARN level.
@@ -472,7 +464,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at level WARN according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the WARN level.
@@ -521,7 +512,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at the ERROR level according to the specified format and
      * argument.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the ERROR level.
@@ -538,7 +528,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at the ERROR level according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the ERROR level.
@@ -556,7 +545,6 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     /**
      * Log a message at level ERROR according to the specified format and
      * arguments.
-     * <p/>
      * <p>
      * This form avoids superfluous object creation when the logger is disabled
      * for the ERROR level.
@@ -685,7 +673,7 @@ public class AndroidLoggerAdapter extends MarkerIgnoringBase {
     }
 
     private StackTraceElement determineCaller() {
-        final StackTraceElement[] stackTrace = new DetermineCallerException().getStackTrace();
+        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (final StackTraceElement element : stackTrace) {
             if (mClassNamePattern.matcher(element.getClassName()).matches()) {
                 return element;
