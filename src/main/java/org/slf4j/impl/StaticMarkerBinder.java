@@ -43,7 +43,7 @@ import org.slf4j.helpers.BasicMarkerFactory;
 import org.slf4j.spi.MarkerFactoryBinder;
 
 /**
- * 
+ *
  * The binding of {@link org.slf4j.MarkerFactory} class with an actual instance of
  * {@link org.slf4j.IMarkerFactory} is performed using information returned by this class.
  *
@@ -59,6 +59,15 @@ public final class StaticMarkerBinder implements MarkerFactoryBinder {
   private final IMarkerFactory markerFactory = new BasicMarkerFactory();
 
   private StaticMarkerBinder() {
+  }
+
+  /**
+   * Return the singleton of this class.
+   *
+   * @return the StaticMarkerBinder singleton
+   */
+  public static StaticMarkerBinder getSingleton() {
+      return SINGLETON;
   }
 
   /**
