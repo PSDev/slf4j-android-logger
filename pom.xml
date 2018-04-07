@@ -64,16 +64,16 @@
 
         <!-- Dependency Versions -->
         <junit.version>4.12</junit.version>
-        <robolectric.version>3.0</robolectric.version>
+        <robolectric.version>3.8</robolectric.version>
         <android.version>6.0_r3</android.version>
-        <slf4j-api.version>1.7.21</slf4j-api.version>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
 
         <!-- Plugin Versions -->
-        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-        <maven-source-plugin.version>3.0.0</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     </properties>
 
