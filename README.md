@@ -43,6 +43,12 @@ Credits
 
 This library is based upon the official [slf4j-android][2] implementation.
 
+Contributors
+------------
+
+Thank you to all the contributors of this project, namely:
+
+- [Philip Aston](https://github.com/PSDev/slf4j-android-logger/commits?author=philipa)
 
 License
 -------
